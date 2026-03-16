@@ -22,19 +22,23 @@ FEISHU_URLS = [url.strip() for url in os.environ.get("FEISHU_URL", "").split(','
 MODEL_TYPE = os.environ.get("MODEL_TYPE", "DeepSeek")
 
 def match_score(item):
+    # 高权重关键词：直接与用户意图+LLM相关
     keywords = [
-        "click-through", "recommend", "taobao", "ctr", "cvr", "conver", "match",
-        "search", "rank", "alipay", "kuanshou", "multi-task", "candidate", "relevance", "query",
-        "retriev", "personal",  "click", "commerce", "embedding", "collaborative", "facebook",
-        "sequential",  "wechat", "tencent", "multi-objective", "ads", "tower", "approximat", 
-        "instacart", "airbnb", "negative"
+        "intent", "user intent", "query understanding", "llm", "large language model",
+        "recommend", "search", "retriev", "rank", "personal",
+        "click", "implicit feedback", "session", "sequential",
+        "generative", "prompt", "fine-tun", "reasoning",
+        "prior", "posterior", "user model", "user behav",
+        "preference", "need", "demand", "proactive",
     ]
+    # 中等权重关键词：间接相关
     keywords2 = [
-        "bias", "cold", "a/b", "intent", "product", "domain", "feed", "large-scale", "interest", "estima", "online", "twitter",
-        "machine learning", "stream", "netflix", "linucb", "user", "term", "semantic",  
-        "explor", "sampl", "listwise", "constrative", "pairwise", "bandit", "variation", "session", 
-        "uplift", "distil", "item", "similar", "behavior", "cascad", "trigger", "transfer"
-        "top-k", "top-n", "bid"
+        "ctr", "cvr", "conver", "match", "relevance", "query",
+        "collaborative", "embedding", "multi-task", "candidate",
+        "interest", "cold", "online", "stream", "transfer",
+        "distil", "item", "behavior", "trigger", "explor",
+        "listwise", "pairwise", "bandit", "user",
+        "semantic", "contrastive", "in-context", "chain-of-thought",
     ]
     score = 0
     for keyword in keywords:
